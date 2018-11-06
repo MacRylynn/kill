@@ -1,6 +1,7 @@
 package com.kill.dao;
 
 import com.kill.entity.Seckill;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class SeckillDaoTest {
     @Autowired
     //注入DAO实现类依赖
     private SeckillDao seckillDAO;
+
 
     @Test
     public void testReduceNumber() {

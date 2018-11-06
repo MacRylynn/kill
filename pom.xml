@@ -144,7 +144,11 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
+
         <!-- 在Redis缓存中使用的序列化工具protostuff -->
         <!--Protobuf序列化,讲对象或数据模型中有效的内容转化成Byte数组,不包括类信息与数据模型,再反序列化时需要指定目标数据结构,根据数据结构类型对应反序列化,由于仅仅包含内容,故此体积最小-->
         <!-- 下面的<dependencyManagement>中也要添加一段依赖 -->
@@ -162,6 +166,12 @@
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
 
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2</version>
         </dependency>
     </dependencies>
 

@@ -100,6 +100,7 @@ public class SeckillController {
 
     }
 
+
     /**
      * 执行秒杀，何时调用这个链接是写在seckill.js文件里的
      */
@@ -116,6 +117,9 @@ public class SeckillController {
         }
 
         try {
+//            优化点
+//            SeckillExecution seckillExecution = seckillService.executeSeckillProcedure(seckillId, userPhone, md5);//使用存储过程秒杀 现在一般不用
+
             // 正常执行秒杀
             SeckillExecution seckillExecution = seckillService.executeSeckill(seckillId, userPhone, md5);
             return new SeckillResult<SeckillExecution>(true, seckillExecution);

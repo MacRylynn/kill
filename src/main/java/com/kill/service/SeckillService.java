@@ -45,4 +45,15 @@ public interface SeckillService {
      * @return
      */
     SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException,RepeatKillException,SeckillCloseException;
+
+    /**
+     * 使用存储过程实现
+     * 执行秒杀操作，有可能失败，有可能成功，所以要抛出我们允许的异常
+     * 传进来的是商品的ID、用户电话号码、MD5，和系统里面的做比较，如果相同则开启秒杀，不同则拒绝秒杀
+     * @param seckillId
+     * @param userPhone
+     * @param md5
+     * @return
+     */
+    SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5);
 }
