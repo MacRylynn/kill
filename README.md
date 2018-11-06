@@ -5,7 +5,7 @@
 # 主要流程
 列表页-->用户登录-->列表详情页-->秒杀倒计时-->秒杀接口地址暴露（防止用户用第三方软件刷单使用了随机salt+userPhone的MD5明文加密）-->执行秒杀。
 
-#后端使用SpringBoot+MyBatis实现 
+# 后端使用SpringBoot+MyBatis实现 
 
 # 列表页（前端使用Bootstrap+Thymeleaf实现）
 ![Image text](https://raw.githubusercontent.com/MacRylynn/kill/master/images/1.png)
