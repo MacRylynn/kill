@@ -8,6 +8,7 @@
     <!--目的:为dao接口方法提供sql语句配置  即针对dao接口中的方法编写我们的sql语句-->
 
     <!-- 下面依次对应DAO层对应类的每个接口方法 -->
+    <!--对update语句或者select ...for update都会加锁。当然这里select语句的where条件比如是id（主键）或者加索引的字段，那么会对查询的数据加锁，如果where里是非索引字段，则会全表加锁。-->
     <update id="reduceNumber">
         <!--具体的sql-->
         <!--当要传入多个参数时#{seckillId}的参数写法是错误的，因为在MyBatis3中不会识别这样的参数，所以应该改成#{arg0}，{arg1}这样的形式。-->
