@@ -1,6 +1,7 @@
 package com.kill.service.impl;
 
 
+import com.kill.dao.RedisDao;
 import com.kill.dao.SeckillDao;
 import com.kill.dao.SuccessKilledDao;
 import com.kill.dto.Exposer;
@@ -36,8 +37,8 @@ public class SeckillServiceImpl implements SeckillService {
     private SeckillDao seckillDao;
     @Autowired
     private SuccessKilledDao successKilledDao;
-//    @Autowired
-//    private RedisDao redisDao;
+    @Autowired
+   private RedisDao redisDao;
 
     //md5盐值字符串，用于混淆md5
     private final String salt = "asda!@#@#$@#asdas$@1555213123#asdasdaasd$@#asd$@as2#$#!!!";
@@ -57,31 +58,35 @@ public class SeckillServiceImpl implements SeckillService {
     @Override
     public Exposer exportSeckillUrl(long seckillId) {
 
+        //方式一  用Redis优化访问
         /**
          * 优化点：缓存优化
          */
 //         1:访问Redis
-//        Seckill seckill = redisDao.getSeckill(seckillId);
-//        if (seckill == null) {
-//        }
-//        2：如果缓存没有的话则访问数据库
+        Seckill seckill = redisDao.getSeckill(seckillId);
+     if (seckill == null) {
+         // 2：如果缓存没有的话则访问数据库
+         seckill = seckillDao.queryById(seckillId);//拿到这一条秒杀
+        }
+        //如果数据库也没有直接返回错误信息
+        if (seckill == null) {
+            //构造方法：秒杀商品不存在，不暴露接口
+            return new Exposer(false, seckillId);
+        }
+        else {
+            //3：放入Redis
+            String result = redisDao.putSeckill(seckill);
+            System.out.println(result);
+        }
+
+//     方式二  直接用数据库的秒杀
 //        Seckill seckill = seckillDao.queryById(seckillId);//拿到这一条秒杀
 //        //如果数据库也没有直接返回错误信息
 //        if (seckill == null) {
 //            //构造方法：秒杀商品不存在，不暴露接口
 //            return new Exposer(false, seckillId);
 //        }
-//        else {
-//            //3：放入Redis
-//            String result = redisDao.putSeckill(seckill);
-//        }
-//
-        Seckill seckill = seckillDao.queryById(seckillId);//拿到这一条秒杀
-        //如果数据库也没有直接返回错误信息
-        if (seckill == null) {
-            //构造方法：秒杀商品不存在，不暴露接口
-            return new Exposer(false, seckillId);
-        }
+
         Date startTime = seckill.getStartTime();//拿到这条秒杀开始的时间
         Date endTime = seckill.getEndTime();//拿到这条秒杀结束的时间
         Date nowTime = new Date();//拿到系统当前时间

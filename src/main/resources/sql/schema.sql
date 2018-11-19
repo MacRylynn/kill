@@ -1,5 +1,5 @@
 -- #数据库初始化脚本
---
+--#将sql文件导入linux服务器的时候，注释需要--# （必须要加# ！！！）
 -- #创建数据库
 DROP database IF EXISTS seckill;
 CREATE database seckill DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
@@ -16,7 +16,7 @@ CREATE TABLE seckill(
 	`seckill_id` BIGINT NOT NUll AUTO_INCREMENT COMMENT '商品库存ID',
 	`name` VARCHAR(120) NOT NULL COMMENT '商品名称',
 	`number` INT NOT NULL COMMENT '库存数量',
-	`start_time` TIMESTAMP NOT NULL COMMENT '秒杀开始时间', --没有指定默认值，自动为CURRENT_TIMESTAMP
+	`start_time` TIMESTAMP NOT NULL COMMENT '秒杀开始时间', --#没有指定默认值，自动为CURRENT_TIMESTAMP
 	`end_time` TIMESTAMP NOT NULL DEFAULT '2017-01-01 00:00:00'  COMMENT '秒杀结束时间',--	#mysql5.7以上版本TIMESTAMP默认时间不能为0
 	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',	--	#mysql5.7版本以下不能有两个默认值是CURRENT_TIMESTAMP,5.7就可以
 	PRIMARY KEY (seckill_id),
@@ -28,9 +28,9 @@ CREATE TABLE seckill(
 -- #初始化seckill表数据
 INSERT INTO seckill(name,number,start_time,end_time)
 VALUES
-	('1000元秒杀iPhone7',100,'2017-01-01 00:00:00','2018-12-12 00:00:00'),
-	('800元秒杀ipad',200,'2017-01-01 00:00:00','2017-2-12 00:00:00'),
-	('5000元秒杀Mac Pro',300,'2018-12-11 00:00:00','2018-12-12 00:00:00');
+	('1000元秒杀iPhone7',100,'2017-01-01 00:00:00','2017-12-12 00:00:00'),
+	('800元秒杀ipad',200,'2018-10-01 00:00:00','2019-2-12 00:00:00'),
+	('5000元秒杀Mac Pro',300,'2019-01-11 00:00:00','2019-01-13 00:00:00');
 
 --#建表success_killed，秒杀成功明细表
 --#用户登录认证信息（简化为手机号）
